@@ -1,8 +1,8 @@
 import { Routes, Route } from "react-router-dom";
-import Product from "./pages/seller/product";
 import AddProduct from "./pages/seller/AddProduct";
 import Profile from "./pages/seller/Profile";
 import DetailProduct from "./pages/seller/DetailProduct";
+import Product from "./pages/seller/Product";
 function App() {
   return (
     <>
