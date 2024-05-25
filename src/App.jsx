@@ -7,6 +7,8 @@ import Welcome from "./pages/seller/Welcome";
 import AdminLogin from "./pages/admin/AdminLogin";
 import SellerLogin from "./pages/seller/SellerLogin";
 import SellerRegister from "./pages/seller/SellerRegister";
+import AdminDasboard from "./pages/admin/AdminDasboard";
+import AdminProfile from "./pages/admin/AdminProfile";
 function App() {
   return (
     <>
@@ -22,6 +24,8 @@ function App() {
 
         {/* Admin Routes */}
         <Route path="/admin" element={<AdminLogin />} />
+        <Route path="/admin/dashboard" element={<AdminDasboard />} />
+        <Route path="/admin/profile" element={<AdminProfile />} />
       </Routes>
     </>
   );
