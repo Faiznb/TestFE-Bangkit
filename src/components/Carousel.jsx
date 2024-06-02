@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
-import { RxDotFilled } from "react-icons/rx";
 
 export default function Carousel({ slides }) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -15,10 +14,6 @@ export default function Carousel({ slides }) {
     const isLastSlide = currentIndex === slides.length - 1;
     const newIndex = isLastSlide ? 0 : currentIndex + 1;
     setCurrentIndex(newIndex);
-  };
-
-  const goToSlide = (slideIndex) => {
-    setCurrentIndex(slideIndex);
   };
 
   return (

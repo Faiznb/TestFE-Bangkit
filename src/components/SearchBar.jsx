@@ -7,7 +7,7 @@ const SearchBar = () => {
     <header className="lg:sticky top-0 p-4 flex justify-between items-center bg-white shadow z-10">
       <div className="flex items-center">
         <img src={logo} alt="" className="w-10 mr-3 " />
-        <p className="hidden lg:block text-2xl text-primary">BrainStore</p>
+        <p className="hidden md:block text-2xl text-primary">BrainStore</p>
       </div>
       <div className="relative flex items-center w-full md:w-1/2">
         <input type="text" placeholder="Search" className="border rounded-full py-2 px-4 pl-10 w-full" />
