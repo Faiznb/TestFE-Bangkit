@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Product from "./pages/seller/Product";
 import AddProduct from "./pages/seller/AddProduct";
-import Profile from "./pages/seller/Profile";
+import SellerProfile from "./pages/seller/SellerProfile";
 import DetailProduct from "./pages/seller/DetailProduct";
 import AdminLogin from "./pages/admin/AdminLogin";
 import SellerLogin from "./pages/seller/SellerLogin";
@@ -14,6 +14,8 @@ import WelcomeSeller from "./pages/seller/WelcomeSeller";
 import Welcome from "./pages/client/Welcome";
 import Login from "./pages/client/Login";
 import Register from "./pages/client/Register";
+import Favorites from "./pages/client/Favorites";
+import Profile from "./pages/client/Profile";
 function App() {
   return (
     <>
@@ -23,14 +25,15 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-
+        <Route path="/favorites" element={<Favorites />} />
+        <Route path="/profile" element={<Profile />} />
         {/* Seller Routes */}
         <Route path="/seller" element={<WelcomeSeller />} />
         <Route path="/seller/register" element={<SellerRegister />} />
         <Route path="/seller/login" element={<SellerLogin />} />
         <Route path="/seller/product" element={<Product />} />
         <Route path="/seller/addProduct" element={<AddProduct />} />
-        <Route path="/seller/profile" element={<Profile />} />
+        <Route path="/seller/profile" element={<SellerProfile />} />
         <Route path="/seller/detail/:id" element={<DetailProduct />} />
 
         {/* Admin Routes */}
