@@ -1,13 +1,21 @@
 import { useState } from "react";
 import logokecil from "../../assets/logokecilbewarna.png";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../redux/slices/authSlice";
 
 const SellerLogin = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  const { error } = useSelector((state) => state.auth);
+  console.log(error);
 
-  const handleLogin = () => {
-    navigate("/seller/product");
+  const handleLogin = (e) => {
+    e.preventDefault();
+    dispatch(login({ user_email: email, user_password: password }));
   };
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -26,13 +34,13 @@ const SellerLogin = () => {
               <label className="block mb-2 lg:text-xl" htmlFor="email">
                 Email
               </label>
-              <input type="email" id="email" className="w-full p-2 text-secondary rounded" required />
+              <input type="email" id="email" onChange={(e) => setEmail(e.target.value)} className="w-full p-2 text-secondary rounded" required />
             </div>
             <div className="mb-6 relative">
               <label className="block mb-2 text-xl" htmlFor="password">
                 Password
               </label>
-              <input type={showPassword ? "text" : "password"} id="password" className="w-full p-2  text-secondary rounded" required />
+              <input type={showPassword ? "text" : "password"} id="password" onChange={(e) => setPassword(e.target.value)} className="w-full p-2  text-secondary rounded" required />
               <button type="button" onClick={togglePasswordVisibility} className="absolute right-2 top-14 transform -translate-y-1/2 text-secondary">
                 {showPassword ? "Hide" : "Show"}
               </button>
