@@ -61,7 +61,7 @@ const AddProduct = () => {
 
   return (
     <>
-      <Header />
+      <Header role="seller" />
       <div className="flex">
         <Nav />
         <div className="ml-0 lg:ml-64 p-4 w-full font-roboto">

@@ -1,14 +1,10 @@
 import avatar from "../assets/profile.jpg";
 import { BiSolidUser } from "react-icons/bi";
-export const user = {
-  name: "Toko John Doe",
-  avatar: avatar,
-};
 
-const Header = ({ role }) => {
+const Header = ({ role, profileData, loading, error }) => {
   return (
     <div className="font-roboto flex justify-end items-center p-4 sticky top-0 bg-slate-100">
-      <div className="flex items-center space-x-2 ">
+      <div className="flex items-center space-x-2">
         {role === "admin" ? (
           <>
             <span>Admin</span>
@@ -16,10 +12,14 @@ const Header = ({ role }) => {
               <BiSolidUser size={20} />
             </div>
           </>
+        ) : loading ? (
+          <span>Loading...</span>
+        ) : error ? (
+          <span>Error: {error.message}</span>
         ) : (
           <>
-            <span>{user.name}</span>
-            <img src={user.avatar} alt="User Avatar" className="w-8 h-8 rounded-full" />
+            <span>{profileData.user_name}</span>
+            <img src={profileData.user_img || avatar} alt="User Avatar" className="w-8 h-8 rounded-full" />
           </>
         )}
       </div>

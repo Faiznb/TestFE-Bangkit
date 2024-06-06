@@ -1,22 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import logokecil from "../../assets/logokecilbewarna.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../redux/slices/authSlice";
+import { login } from "../../redux/features/auth/authThunks";
+import { getTokenSeller } from "../../utils/cookies";
 
 const SellerLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
-  // const navigate = useNavigate();
-  const { error } = useSelector((state) => state.auth);
-  console.log(error);
-
+  const navigate = useNavigate();
+  const { isAuthenticated, error } = useSelector((state) => state.auth);
+  useEffect(() => {
+    const token = getTokenSeller();
+    if (token) {
+      navigate("/seller/products");
+    }
+  }, [navigate]);
   const handleLogin = (e) => {
     e.preventDefault();
-    dispatch(login({ user_email: email, user_password: password }));
+    dispatch(login({ user_email: email, user_password: password, role: "seller" }));
   };
+  if (isAuthenticated) {
+    navigate("/seller/products");
+  }
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };

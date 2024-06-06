@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getToken } from "./cookies";
+import { getTokenCustomer, getTokenSeller, getTokenAdmin } from "./cookies";
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
@@ -9,7 +9,21 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use((config) => {
-  const token = getToken();
+  let token;
+
+  switch (config.role) {
+    case "customer":
+      token = getTokenCustomer();
+      break;
+    case "seller":
+      token = getTokenSeller();
+      break;
+    case "admin":
+      token = getTokenAdmin();
+      break;
+    default:
+      throw new Error("Invalid role");
+  }
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }

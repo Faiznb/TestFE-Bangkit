@@ -64,11 +64,11 @@ const Nav = ({ role }) => {
               <>
                 <li className="p-2 cursor-pointer">
                   <NavLink
-                    to="/seller/product"
+                    to="/seller/products"
                     className={({ isActive }) => `flex items-center justify-center w-full p-2 rounded-full hover:bg-secondary hover:text-white font-roboto ${isActive ? "bg-secondary text-white" : "text-black bg-white"}`}
                   >
                     <BiPackage size={20} className="mr-2" />
-                    Product
+                    Products
                   </NavLink>
                 </li>
                 <li className="p-2 cursor-pointer">

@@ -1,8 +1,9 @@
 import { useNavigate, useParams } from "react-router-dom";
 import Nav from "../../components/Nav";
-import { products } from "./Product";
+// import { products } from "./Product";
 import { FaStar } from "react-icons/fa";
 import Header from "../../components/Header";
+
 const DetailProduct = () => {
   const { id } = useParams();
   const product = products.find((product) => product.id === parseInt(id));
