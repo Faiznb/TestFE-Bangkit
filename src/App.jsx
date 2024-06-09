@@ -12,19 +12,22 @@ import AdminAppeals from "./pages/admin/AdminAppeal";
 import Home from "./pages/client/Home";
 import WelcomeSeller from "./pages/seller/WelcomeSeller";
 import Welcome from "./pages/client/Welcome";
-import Login from "./pages/client/Login";
-import Register from "./pages/client/Register";
+import LoginCustomer from "./pages/client/LoginCustomer";
+import RegisterCustomer from "./pages/client/RegisterCustomer";
 import Favorites from "./pages/client/Favorites";
 import Profile from "./pages/client/Profile";
 import RequireAuth from "./components/RequireAuth";
+import ShopProfile from "./pages/seller/ShopProfile";
+import AppealReq from "./pages/seller/AppealReq";
+import AppealHistorySeller from "./pages/seller/AppealHistorySeller";
 function App() {
   return (
     <>
       <Routes>
         {/* Client Routes */}
         <Route path="/" element={<Welcome />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<LoginCustomer />} />
+        <Route path="/register" element={<RegisterCustomer />} />
         <Route
           path="/home"
           element={
@@ -79,10 +82,34 @@ function App() {
           }
         />
         <Route
+          path="/seller/shop"
+          element={
+            <RequireAuth role="seller">
+              <ShopProfile />
+            </RequireAuth>
+          }
+        />
+        <Route
           path="/seller/detail/:id"
           element={
             <RequireAuth role="seller">
               <DetailProduct />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/seller/appeal"
+          element={
+            <RequireAuth role="seller">
+              <AppealHistorySeller />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/seller/req-appeal/:id"
+          element={
+            <RequireAuth role="seller">
+              <AppealReq />
             </RequireAuth>
           }
         />

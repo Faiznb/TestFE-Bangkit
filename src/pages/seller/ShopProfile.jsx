@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
+import avatar from "../../assets/profile.jpg";
 import Nav from "../../components/Nav";
 import { FaFileUpload, FaTimesCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserProfile, updateUserProfile } from "../../redux/features/profile/profileThunks";
-import avatar from "../../assets/profile.jpg";
-const SellerProfile = () => {
+import { fetchShopProfile, updateShopProfile } from "../../redux/features/seller/shop/shopThunks";
+
+const ShopProfile = () => {
   const dispatch = useDispatch();
-  const profileState = useSelector((state) => state.profile);
+  const profileState = useSelector((state) => state.shopProfile);
   const [profileData, setProfileData] = useState({});
 
   useEffect(() => {
-    dispatch(fetchUserProfile("seller"));
+    dispatch(fetchShopProfile());
   }, [dispatch]);
 
   useEffect(() => {
@@ -21,8 +22,8 @@ const SellerProfile = () => {
 
   const [product, setProduct] = useState({
     ShopName: "",
-    SellerName: "",
-    SellerEmail: "",
+    ShopLocation: "",
+    ShopDescription: "",
     imagePreviewUrl: "",
   });
 
@@ -30,8 +31,8 @@ const SellerProfile = () => {
     if (profileData) {
       setProduct({
         ShopName: profileData.store_name || "",
-        SellerName: profileData.user_name || "",
-        SellerEmail: profileData.user_email || "",
+        ShopLocation: profileData.store_location || "",
+        ShopDescription: profileData.store_desc || "",
         imagePreviewUrl: "",
       });
     }
@@ -81,17 +82,17 @@ const SellerProfile = () => {
 
     const formData = new FormData();
     if (imageFile) {
-      formData.append("img_user", imageFile);
+      formData.append("img_store", imageFile);
     }
-    formData.append("user_email", product.SellerEmail);
-    formData.append("user_name", product.SellerName);
-    const role = "seller";
-    dispatch(updateUserProfile({ role: role, profileData: formData }));
+    formData.append("store_desc", product.ShopDescription);
+    formData.append("store_location", product.ShopLocation);
+
+    dispatch(updateShopProfile(formData));
 
     setProduct({
       ShopName: "",
-      SellerName: "",
-      SellerEmail: "",
+      ShopLocation: "",
+      ShopDescription: "",
       imagePreviewUrl: "",
     });
     setImageFile(null);
@@ -111,7 +112,7 @@ const SellerProfile = () => {
           <form onSubmit={handleSubmit}>
             <div className="mb-2 flex flex-col items-center">
               <div className="w-48 h-48 rounded-full overflow-hidden bg-gray-200 mb-2">
-                <img src={product.imagePreviewUrl || profileData.user_img || avatar} alt="Profile picture" className="w-full h-full" />
+                <img src={product.imagePreviewUrl || profileData.store_img || avatar} alt="Profile picture" className="w-full h-full" />
               </div>
               <div className="flex items-center">
                 <label className={`cursor-pointer ${product.imagePreviewUrl ? "hidden" : "bg-gray-200 hover:bg-gray-300"} text-gray-800 font-semibold py-2 px-4 rounded inline-flex items-center`} htmlFor="image">
@@ -145,31 +146,31 @@ const SellerProfile = () => {
               />
             </div>
             <div className="mb-2 lg:mb-3">
-              <label className="block text-sm font-bold mb-1 lg:text-xl lg:mb-2" htmlFor="SellerName">
-                Seller Name
+              <label className="block text-sm font-bold mb-1 lg:text-xl lg:mb-2" htmlFor="ShopLocation">
+                Shop Location
               </label>
               <input
                 type="text"
-                id="SellerName"
-                name="SellerName"
-                value={product.SellerName}
+                id="ShopLocation"
+                name="ShopLocation"
+                value={product.ShopLocation}
                 onChange={handleChange}
                 className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
-                placeholder="Seller Name"
+                placeholder="Shop Location"
               />
             </div>
             <div className="mb-2 lg:mb-3">
-              <label className="block text-sm font-bold mb-1 lg:text-xl lg:mb-2" htmlFor="SellerEmail">
-                Email
+              <label className="block text-sm font-bold mb-1 lg:text-xl lg:mb-2" htmlFor="ShopDescription">
+                Shop Description
               </label>
               <input
-                type="email"
-                id="SellerEmail"
-                name="SellerEmail"
-                value={product.SellerEmail}
+                type="text"
+                id="ShopDescription"
+                name="ShopDescription"
+                value={product.ShopDescription}
                 onChange={handleChange}
                 className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
-                placeholder="Email"
+                placeholder="Shop Description"
               />
             </div>
 
@@ -186,4 +187,4 @@ const SellerProfile = () => {
   );
 };
 
-export default SellerProfile;
+export default ShopProfile;

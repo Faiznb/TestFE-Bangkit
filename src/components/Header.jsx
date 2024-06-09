@@ -1,7 +1,24 @@
+import { useDispatch, useSelector } from "react-redux";
 import avatar from "../assets/profile.jpg";
 import { BiSolidUser } from "react-icons/bi";
+import { useEffect, useState } from "react";
+import { fetchUserProfile } from "../redux/features/profile/profileThunks";
 
-const Header = ({ role, profileData, loading, error }) => {
+const Header = ({ role }) => {
+  const dispatch = useDispatch();
+  const profileState = useSelector((state) => state.profile);
+  const [profileData, setProfileData] = useState({});
+  useEffect(() => {
+    if (role === "seller") {
+      dispatch(fetchUserProfile(role));
+    }
+  }, [dispatch, role]);
+  useEffect(() => {
+    if (profileState.profileData) {
+      setProfileData(profileState.profileData);
+    }
+  }, [profileState.profileData]);
+
   return (
     <div className="font-roboto flex justify-end items-center p-4 sticky top-0 bg-slate-100">
       <div className="flex items-center space-x-2">
@@ -12,10 +29,10 @@ const Header = ({ role, profileData, loading, error }) => {
               <BiSolidUser size={20} />
             </div>
           </>
-        ) : loading ? (
+        ) : profileState.profileLoading ? (
           <span>Loading...</span>
-        ) : error ? (
-          <span>Error: {error.message}</span>
+        ) : profileState.profileError ? (
+          <span>Error: {profileState.profileError}</span>
         ) : (
           <>
             <span>{profileData.user_name}</span>

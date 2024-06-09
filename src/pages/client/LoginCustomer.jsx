@@ -2,30 +2,29 @@ import { useEffect, useState } from "react";
 import logokecil from "../../assets/logokecilbewarna.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { getTokenCustomer } from "../../utils/cookies";
 import { login } from "../../redux/features/auth/authThunks";
-import { getTokenSeller } from "../../utils/cookies";
-
-const SellerLogin = () => {
+const LoginCustomer = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const { isAuthenticated, error, loading } = useSelector((state) => state.auth);
+
   useEffect(() => {
-    const token = getTokenSeller();
+    const token = getTokenCustomer();
     if (token) {
-      navigate("/seller/products");
+      navigate("/home");
     }
   }, [navigate]);
   const handleLogin = (e) => {
     e.preventDefault();
-    dispatch(login({ user_email: email, user_password: password, role: "seller" }));
+    dispatch(login({ user_email: email, user_password: password, role: "customer" }));
   };
   if (isAuthenticated) {
-    navigate("/seller/products");
+    navigate("/home");
   }
-
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -45,7 +44,7 @@ const SellerLogin = () => {
               <label className="block mb-2 lg:text-xl" htmlFor="email">
                 Email
               </label>
-              <input type="email" id="email" onChange={(e) => setEmail(e.target.value)} className="w-full p-2 text-secondary rounded" required />
+              <input type="email" id="email" className="w-full p-2 text-secondary rounded" onChange={(e) => setEmail(e.target.value)} required />
             </div>
             <div className="mb-6 relative">
               <label className="block mb-2 text-xl" htmlFor="password">
@@ -68,7 +67,7 @@ const SellerLogin = () => {
             </a>
             <div className="mt-2">
               Dont have an account?
-              <Link to={"/seller/register"} className="text-secondary ml-2 hover:underline">
+              <Link to={"/register"} className="text-secondary ml-2 hover:underline">
                 Register here!
               </Link>
             </div>
@@ -79,4 +78,4 @@ const SellerLogin = () => {
   );
 };
 
-export default SellerLogin;
+export default LoginCustomer;

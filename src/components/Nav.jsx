@@ -4,13 +4,18 @@ import { BiPackage, BiArrowFromBottom, BiSolidUser, BiSolidBarChartAlt2, BiSprea
 import { AiOutlineClose } from "react-icons/ai";
 import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/logokecil.png";
+import { logout } from "../redux/features/auth/authSlice";
+import { removeToken } from "../utils/cookies";
+import { useDispatch } from "react-redux";
 
 const Nav = ({ role }) => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const handleLogOut = () => {
-    navigate("/seller");
+    dispatch(logout());
+    removeToken(role);
+    navigate(`/${role}`);
   };
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -82,11 +87,28 @@ const Nav = ({ role }) => {
                 </li>
                 <li className="p-2 cursor-pointer">
                   <NavLink
+                    to="/seller/appeal"
+                    className={({ isActive }) => `font-roboto flex items-center justify-center w-full p-2 rounded-full hover:bg-secondary hover:text-white ${isActive ? "bg-secondary text-white" : "text-black bg-white"}`}
+                  >
+                    Appeal History
+                  </NavLink>
+                </li>
+                <li className="p-2 cursor-pointer">
+                  <NavLink
                     to="/seller/profile"
                     className={({ isActive }) => `font-roboto flex items-center justify-center w-full p-2 rounded-full hover:bg-secondary hover:text-white ${isActive ? "bg-secondary text-white" : "text-black bg-white"}`}
                   >
                     <BiSolidUser size={20} className="mr-2" />
                     Profile
+                  </NavLink>
+                </li>
+                <li className="p-2 cursor-pointer">
+                  <NavLink
+                    to="/seller/shop"
+                    className={({ isActive }) => `font-roboto flex items-center justify-center w-full p-2 rounded-full hover:bg-secondary hover:text-white ${isActive ? "bg-secondary text-white" : "text-black bg-white"}`}
+                  >
+                    <BiSolidUser size={20} className="mr-2" />
+                    Shop Profile
                   </NavLink>
                 </li>
               </>
